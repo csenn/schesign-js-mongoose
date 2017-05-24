@@ -1,57 +1,46 @@
-import { expect } from 'chai';
-import { generateFromClass } from '../src';
-const { describe, it } = global;
+import fs from 'fs'
+import path from 'path'
+import { expect } from 'chai'
+import { generateFromClass } from '../src'
 
-import simple from './fixtures/simple.json';
-import simpleSchema from './fixtures/simpleSchema.json';
-import propertyVariations from './fixtures/propertyVariations.json';
-import propertyVariationsSchema from './fixtures/propertyVariationsSchema.json';
-import inheritance from './fixtures/inheritance.json';
-import inheritanceSchema from './fixtures/inheritanceSchema.json';
-import inheritanceOverride from './fixtures/inheritanceOverride.json';
-import inheritanceOverrideSchema from './fixtures/inheritanceOverrideSchema.json';
-import excludeParent from './fixtures/excludeParent';
-import excludeParentSchema from './fixtures/excludeParentSchema'
+import propertyVariations from 'schesign-graph-examples/graphs/export/property_variations'
+import recursion from 'schesign-graph-examples/graphs/export/recursion'
+import linkedNodes2 from 'schesign-graph-examples/graphs/export/linked_nodes_2'
+import inheritanceChain2 from 'schesign-graph-examples/graphs/export/inheritance_chain_2'
 
+const { describe, it } = global
+const readSql = name => fs.readFileSync(path.resolve(__dirname, 'fixtures', name), 'utf-8')
 
-describe('generateJsonSchema', () => {
-  it('should convert simple to a json schema', () => {
-    const schema = generateFromClass(
-      simple.graph,
-      'https://www.schesign.com/u/my_user/my_design/0.0.1/class/class1'
-    );
-    expect(schema).to.deep.equal(simpleSchema);
-  });
-
-  it('should convert propertyVariations to a json schema', () => {
-    const schema = generateFromClass(
+describe('generateFromClass()', () => {
+  it('should convert propertyVariations to mongoose schema', () => {
+    const str = generateFromClass(
       propertyVariations.graph,
-      'https://www.schesign.com/o/tests/test_property_variations/master/class/class1'
-    );
-    expect(schema).to.deep.equal(propertyVariationsSchema);
-  });
+      'o/tests/property_variations/master/class/class1'
+    )
+    expect(str).to.deep.equal(readSql('property_variations.txt'))
+  })
 
-  it('should convert inheritance to a json schema', () => {
-    const schema = generateFromClass(
-      inheritance.graph,
-      'https://www.schesign.com/u/csenn/test_inheritance_2/master/class/class5'
-    );
-    expect(schema).to.deep.equal(inheritanceSchema);
-  });
+  it('should convert recursion to mongoose schema', () => {
+    const str = generateFromClass(
+      recursion.graph,
+      'o/tests/recursion/master/class/class1'
+    )
+    expect(str).to.deep.equal(readSql('recursion.txt'))
+  })
 
-  it('should convert excludeParent to a json schema', () => {
-    const schema = generateFromClass(
-      excludeParent.graph,
-      'https://www.schesign.com/u/my_user/my_design/0.0.1/class/class2'
-    );
-    expect(schema).to.deep.equal(excludeParentSchema);
-  });
+  it('should convert LinkedNodes to a mongoose schema', () => {
+    const str = generateFromClass(
+      linkedNodes2.graph,
+      'o/tests/linked_nodes_2/master/class/class3'
+    )
+    expect(str).to.deep.equal(readSql('linked_nodes.txt'))
+  })
 
-  it('should convert inheritanceOverride to a json schema', () => {
-    const schema = generateFromClass(
-      inheritanceOverride.graph,
-      'https://www.schesign.com/u/csenn/test_inheritance_override_1/master/class/class1'
-    );
-    expect(schema).to.deep.equal(inheritanceOverrideSchema);
-  });
-});
+  it('should convert inheritance to a mongoose schema', () => {
+    const str = generateFromClass(
+      inheritanceChain2.graph,
+      'o/tests/inheritance_chain_2/master/class/class5'
+    )
+    expect(str).to.deep.equal(readSql('inheritance.txt'))
+  })
+})

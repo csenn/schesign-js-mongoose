@@ -1,0 +1,21 @@
+var mongoose = require('mongoose');
+
+var schema = new mongoose.Schema({
+  e: {
+    type: String
+  },
+  a: {
+    type: Boolean
+  },
+  d: {
+    type: String
+  },
+  c: {
+    type: String
+  },
+  b: {
+    type: String
+  }
+});
+
+module.exports = mongoose.model('class5', schema);

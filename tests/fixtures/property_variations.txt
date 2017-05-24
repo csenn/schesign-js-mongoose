@@ -1,0 +1,109 @@
+var mongoose = require('mongoose');
+
+var schema = new mongoose.Schema({
+  a: {
+    type: Boolean
+  },
+  a1: {
+    type: Boolean,
+    required: true
+  },
+  a2: [{
+    type: Boolean
+  }],
+  a3: [{
+    type: Boolean
+  }],
+  a4: {
+    type: Boolean
+  },
+  a5: {
+    type: Boolean,
+    index: true
+  },
+  a6: {
+    type: Boolean,
+    unique: true
+  },
+  b: {
+    type: String
+  },
+  b1: {
+    type: String,
+    match: '[a-z]'
+  },
+  b2: {
+    type: String
+  },
+  b3: {
+    type: String
+  },
+  b4: {
+    type: String
+  },
+  b5: {
+    type: String
+  },
+  c: {
+    type: Number
+  },
+  c1: {
+    type: Number,
+    min: 0,
+    max: 10
+  },
+  c2: {
+    type: Number
+  },
+  c3: {
+    type: Number
+  },
+  c4: {
+    type: Number
+  },
+  c5: {
+    type: Number
+  },
+  c6: {
+    type: Number
+  },
+  c7: {
+    type: Number
+  },
+  c8: {
+    type: Number
+  },
+  d: {
+    enum: [
+      'one',
+      'two',
+      3,
+      4.5
+    ]
+  },
+  e: {
+    type: Date
+  },
+  e1: {
+    type: Date
+  },
+  e2: {
+    type: Date
+  },
+  f: {
+    a: {
+      type: Boolean
+    },
+    f1: {
+      a: {
+        type: Boolean
+      }
+    }
+  },
+  g: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'class2'
+  }
+});
+
+module.exports = mongoose.model('class1', schema);

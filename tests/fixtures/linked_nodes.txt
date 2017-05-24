@@ -1,0 +1,24 @@
+var mongoose = require('mongoose');
+
+var schema = new mongoose.Schema({
+  a: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'class1'
+  },
+  b: {
+    e: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'class2'
+    }
+  },
+  c: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'class1'
+  },
+  d: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'class4'
+  }
+});
+
+module.exports = mongoose.model('class3', schema);
